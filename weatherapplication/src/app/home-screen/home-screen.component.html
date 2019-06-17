@@ -1,0 +1,30 @@
+<div class="header-homescreen">
+  <p class="header-title">Welcome back {{username}} !</p>
+  <p class="header-city">The city you are currently in is: {{weather?.name}}({{weather?.sys.country}})</p>
+</div>
+<div class="one-day-weather">
+  <div class="one-day-card">
+  <img class="one-weather-picture" src="http://openweathermap.org/img/w/{{weather?.weather[0].icon}}.png">
+  <p class="weather-text">Kind of weather: {{weather?.weather[0].main}}</p>
+  <p class="weather-text"> Tempratuur: °C {{weather?.main.temp}}</p>
+  <p class="weather-text"> minTemp: °C {{weather?.main.temp_min}}</p>
+  <p class="weather-text"> maxTemp: °C {{weather?.main.temp_max}}</p>
+  <p class="weather-text"> Humidty: % {{weather?.main.humidity}} </p>
+  <p class="weather-text"> Wind speed: Meter/sec {{weather?.wind.speed}}</p>
+  </div>
+  <button type="submit" class="btn btn-primary weather-text" (click)="saveWeather(weather?.main.temp, weather?.main.humidity, weather?.wind.speed )">Save</button>
+  <div class="alert-message">
+    <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+  </div>
+</div>
+<br>
+<br>
+<div class="four-day-weather" *ngFor="let data of forecast?.list | slice:1">
+  <div class="four-day-card">
+  <p>Day: {{data?.dt * 1000 | date:'EEEE'}}</p>
+  <img class="four-weather-picture" src="http://openweathermap.org/img/w/{{data?.weather[0].icon}}.png">
+  <p>Forecast: {{data?.weather[0].main}}({{data?.weather[0].description}})</p>
+  <p>Temp: {{data?.temp.day}}</p>
+  <p>Humidity: {{data?.humidity}}</p>
+  </div>
+</div>
